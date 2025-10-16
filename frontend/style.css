@@ -1,0 +1,156 @@
+:root{
+  --bg:#0f172a; --panel:#0b1220; --text:#e5e7eb; --muted:#94a3b8;
+  --accent:#22c55e; --card:#111827; --border:#243042;
+  --sidebar-w:88px;          /* desktop */
+  --sidebar-w-sm:72px;       /* tablet/mobile */
+  --radius:18px;
+  --container:1100px;
+}
+
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+  line-height:1.45;min-height:100dvh;-webkit-tap-highlight-color:transparent;
+}
+
+/* Layout base: desktop */
+.app{
+  display:grid;
+  grid-template-columns:var(--sidebar-w) 1fr;
+  min-height:100dvh;
+}
+
+/* Sidebar desktop */
+.sidebar{
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  position:sticky;top:0;height:100dvh;
+  padding:12px 8px;display:flex;flex-direction:column;gap:10px;align-items:center;
+  overflow-y:auto;
+}
+
+/* Acessibilidade e foco */
+.icon-btn{
+  width:56px;height:56px;border-radius:16px;border:1px solid var(--border);background:#0a1322;
+  display:grid;place-items:center;cursor:pointer;transition:transform .12s ease, background .12s ease;
+}
+.icon-btn:hover{background:#0e1830;transform:translateY(-1px)}
+.icon-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.icon-btn img{width:28px;height:28px;opacity:.92}
+
+.brand{margin:4px 0 10px;display:grid;place-items:center}
+.brand img{width:42px;height:42px;opacity:.95}
+
+main{
+  padding:clamp(16px,2.2vw,24px);
+  max-width:var(--container);
+  margin:0 auto;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:clamp(16px,2vw,20px);
+  margin-bottom:20px;
+}
+
+h2{margin:0 0 14px;font-size:20px}
+
+.row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+
+input,textarea,select{
+  width:100%;padding:14px;border-radius:14px;border:1px solid var(--border);
+  background:#0b1220;color:var(--text);font-size:16px
+}
+
+.action{
+  padding:12px 18px;border-radius:14px;border:1px solid var(--border);
+  background:#0b1220;color:var(--text);cursor:pointer;font-size:15px
+}
+.action.primary{background:var(--accent);border:none;color:#062a16;font-weight:600}
+
+.muted{color:var(--muted);font-size:14px}
+
+.group-list{
+  display:grid;gap:10px;
+  max-height:min(360px,45dvh); /* não estoura telas baixas */
+  overflow:auto;border:1px solid var(--border);border-radius:14px;padding:12px;background:#0a1322
+}
+
+.group-item{display:flex;align-items:center;gap:12px}
+.group-item .id{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#cbd5e1}
+
+/* Tooltip acessível (funciona no hover e no foco/toque) */
+.tooltip{position:relative}
+.tooltip:hover::after,
+.tooltip:focus-within::after{
+  content:attr(data-tip);
+  position:absolute; left:calc(100% + 8px); top:50%; transform:translateY(-50%);
+  background:#000a; color:#fff; padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap;
+}
+
+/* Utilidades */
+.hidden{display:none}
+:where(img,svg,video){max-width:100%;height:auto}
+
+/* Marca maior quando precisar */
+.brand img{width:100px;height:100px;margin-top:-10px;margin-bottom:-10px}
+
+/* Botão WhatsApp responsivo */
+.WhatsApp-button{
+  background:var(--accent);border:none;color:#062a16;font-weight:600;
+  padding:10px;border-radius:20px;inline-size:fit-content;
+}
+@media (pointer:coarse){
+  .WhatsApp-button{min-height:44px;padding:12px 16px}
+  .icon-btn{width:56px;height:56px}
+}
+
+/* Reduz movimento se o usuário preferir */
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+
+/* ============ Breakpoints ============ */
+
+/* <= 1024px: sidebar fixa estreita, conteúdo deslocado por margem */
+@media (max-width:1024px){
+  .app{
+    grid-template-columns:1fr;               /* remove coluna fixa */
+    margin-left:var(--sidebar-w-sm);         /* compensa sidebar fixa */
+    min-height:100dvh;
+  }
+  .sidebar{
+    position:fixed; inset:0 auto auto 0;
+    width:var(--sidebar-w-sm); height:100dvh; z-index:20;
+    justify-content:flex-start;
+  }
+  main{padding:20px 16px}
+  .brand img{width:120px;height:80px;margin:0}
+  .row{grid-template-columns:1fr 1fr}
+}
+
+/* <= 768px: uma coluna em formulários e cards mais compactos */
+@media (max-width:768px){
+  .row{grid-template-columns:1fr}
+  .card{border-radius:16px}
+  .group-list{max-height:40dvh}
+  .WhatsApp-button{width:100%}
+}
+
+/* <= 640px: sidebar ainda menor para ganhar espaço útil */
+@media (max-width:640px){
+  :root{--sidebar-w-sm:60px}
+  .app{margin-left:var(--sidebar-w-sm)}
+  .icon-btn{width:52px;height:52px;border-radius:14px}
+  .brand img{width:100px;height:70px}
+  h2{font-size:18px}
+}

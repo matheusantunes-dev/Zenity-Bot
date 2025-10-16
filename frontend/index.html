@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BotFly • Painel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><img src="assets/icons/home.png" alt="BotFly" role="presentation"></div>
+
+    <button class="icon-btn tooltip" data-target="login" aria-label="Login" title="Login">
+      <img src="assets/icons/login.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="bot" aria-label="Bot (Ligar/Desligar)" title="Bot">
+      <img src="assets/icons/power.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="mensagens" aria-label="Mensagem padrão" title="Mensagem padrão">
+      <img src="assets/icons/message.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="grupos" aria-label="Grupos" title="Grupos">
+      <img src="assets/icons/groups.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="horarios" aria-label="Horários" title="Horários">
+      <img src="assets/icons/clock.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="enviar" aria-label="Enviar teste" title="Enviar teste">
+      <img src="assets/icons/send.svg" alt="">
+    </button>
+
+    <button class="icon-btn tooltip" data-target="info" aria-label="Info" title="Info">
+      <img src="assets/icons/info.png" alt="">
+    </button>
+
+  </aside>
+
+  <main>
+    <section id="login" class="card">
+      <h2>Login</h2>
+      <div class="row">
+        <div>
+          <h3>Cadastrar (apenas 1ª vez)</h3>
+          <input id="su_user" placeholder="usuário">
+          <input id="su_pass" type="password" placeholder="senha" style="margin-top:8px">
+          <div style="margin-top:10px"><button class="action primary" onclick="signup()">Criar conta</button></div>
+        </div>
+        <div>
+          <h3>Entrar</h3>
+          <input id="li_user" placeholder="usuário">
+          <input id="li_pass" type="password" placeholder="senha" style="margin-top:8px">
+          <div style="margin-top:10px"><button class="action primary" onclick="login()">Entrar</button></div>
+        </div>
+      </div>
+      <div class="muted" id="authStatus"></div>
+    </section>
+
+    <section id="bot" class="card hidden">
+      <h2>Bot</h2>
+      <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+        <button class="action" onclick="setPower(true)">Desligar</button>
+        <button class="action primary" onclick="setPower(false)">Ligar</button>
+        <span class="muted" id="powerState"></span>
+      </div>
+    </section>
+
+    <section id="mensagens" class="card hidden">
+      <h2>Mensagem padrão</h2>
+      <textarea id="message" rows="6" placeholder="Mensagem padrão..."></textarea>
+      <div style="margin-top:10px; display:flex; gap:10px; align-items:center">
+        <button class="action primary" onclick="saveMessage()">Salvar</button>
+        <span class="muted" id="msgStatus"></span>
+      </div>
+    </section>
+
+    <section id="grupos" class="card hidden">
+      <h2>Grupos</h2>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px">
+        <button class="action" onclick="marcar(true)">Marcar tudo</button>
+        <button class="action" onclick="marcar(false)">Desmarcar</button>
+        <button class="action primary" onclick="saveGroups()">Salvar</button>
+        <span class="muted" id="grpStatus"></span>
+      </div>
+      <div id="groupCheckboxes" class="group-list" aria-label="Lista de grupos"></div>
+    </section>
+
+    <section id="horarios" class="card hidden">
+      <h2>Horários</h2>
+      <textarea id="schedule" rows="4" placeholder="09:00, 14:00"></textarea>
+      <div style="margin-top:10px; display:flex; gap:10px; align-items:center">
+        <button class="action primary" onclick="saveSchedule()">Salvar</button>
+        <span class="muted" id="schStatus"></span>
+      </div>
+    </section>
+
+    <section id="enviar" class="card hidden">
+      <h2><strong>Enviar teste</strong></h2>
+      <div class="row">
+        <div>
+          <input id="testTo" placeholder="WhatsApp em formato internacional. Ex: 5511999999999">
+        </div>
+        <div>
+          <input id="testText" placeholder="Mensagem">
+        </div>
+      </div>
+      <div style="margin-top:10px; display:flex; gap:10px; align-items:center">
+        <button class="action primary" onclick="sendTest()">Enviar</button>
+        <span class="muted" id="sendStatus"></span>
+      </div>
+      <div class="muted" style="margin-top:10px">Requer WhatsApp Cloud API configurado no backend.</div>
+    </section>
+
+    <section id="info" class="card hidden">
+      <h2><strong>BotFly Automação de Ponta</strong></h2>
+      <div class="row">
+        
+      </div>
+      <div style="margin-top:10px; display:flexbox; gap:40px;" class="Info">
+        <h1> O nosso BotFly foi desenvolvido para fins de automação para WhatsApp.</h1>
+        <h2> Este Bot usa a tecnologia de APIs, para o funcionamento de sua automação de ponta.</h2>
+        <h3> Oque facilita e não necessitando de autenticação via QR-code.</h3>
+        <h4><strong>ATENÇÃO:</strong> Uma API não assegura de que o usuário não tenha necessidade de usar um chip novo (recomendado)
+pois caso algum erro no sistema, caso, seu numero próprio esteja em uso, o risco de acontecer imprevistos com envio de mensagens é grande.
+Recomendamos fortemente que use um chip próprio para este uso, assim estará mais livre de problemas técnicos com seu Produto.</h4>
+        <h5 style="font-size: large;">Caso queira, solicitar, atualizações, reclamações, clique no botão abaixo e tenha uma conversa mais ampla com nosso Desenvolvedor.</h5>
+        <a href="https://wa.me/5538988064942" class="WhatsApp-button"> Fale com o Desenvolvedor</a>
+        <span class="muted" id="sendStatus"></span>
+      </div>
+      
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
