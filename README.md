@@ -1,4 +1,4 @@
-# BotFlow • Cloud API (Frontend + Backend)
+# Zenity Bot • Cloud API (Frontend + Backend)
 
 ## Pastas
 - `frontend/` • site Netlify (SPA) com `index.html`, `style.css` e `app.js`.
@@ -18,8 +18,8 @@ Veja `backend/.env.example` e preencha:
 
 ## Backend (Oracle/VM ou qualquer VPS)
 - Docker:
-  docker build -t botflow-api backend
-  docker run -d --name botflow -p 8080:8080     -e WABA_TOKEN=... -e WABA_PHONE_ID=... -e WABA_API_VER=v21.0     -e JWT_SECRET=... -e CORS_ORIGIN=https://SEU-SITE.netlify.app     -e DATA_DIR=/srv/data     -v botflow_data:/srv/data botflow-api
+  docker build -t zenitybot-api backend
+  docker run -d --name zenitybot -p 8080:8080     -e WABA_TOKEN=... -e WABA_PHONE_ID=... -e WABA_API_VER=v21.0     -e JWT_SECRET=... -e CORS_ORIGIN=https://SEU-SITE.netlify.app     -e DATA_DIR=/srv/data     -v zenitybot_data:/srv/data zenitybot-api
 
 - Sem Docker:
   cd backend
